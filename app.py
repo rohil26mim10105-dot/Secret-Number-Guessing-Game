@@ -1,135 +1,212 @@
-import customtkinter as ctk
-from tkinter import messagebox
-import random
+# 🎯 Secret Number Guessing Game
 
-# ------------------ SETTINGS ------------------ #
-ctk.set_appearance_mode("Dark")
-ctk.set_default_color_theme("blue")
+A beginner-friendly Python project where the player has to guess a randomly generated **4-digit secret number** within a limited number of attempts.
 
-MAX_ATTEMPTS = 5
+This project demonstrates the use of Python fundamentals including functions, loops, conditional statements, modules, input validation, and random number generation.
 
-# ------------------ WINDOW ------------------ #
-app = ctk.CTk()
-app.title("🎯 Secret Number Guessing Game")
-app.geometry("550x500")
-app.resizable(False, False)
+---
 
-# ------------------ GAME VARIABLES ------------------ #
-secret_number = random.randint(1000, 9999)
-attempts_left = MAX_ATTEMPTS
+## 📌 Table of Contents
 
-# ------------------ FUNCTIONS ------------------ #
-def update_hearts():
-    hearts = "❤️ " * attempts_left
-    empty = "🖤 " * (MAX_ATTEMPTS - attempts_left)
-    attempts_label.configure(text=f"Attempts: {hearts}{empty}")
+- About
+- Features
+- Technologies Used
+- Project Structure
+- How It Works
+- Installation
+- Usage
+- Sample Output
+- Python Concepts Used
+- Future Improvements
+- Learning Outcomes
+- Author
+- License
 
-def reset_game():
-    global secret_number, attempts_left
+---
 
-    secret_number = random.randint(1000, 9999)
-    attempts_left = MAX_ATTEMPTS
+# 📖 About
 
-    guess_entry.delete(0, "end")
-    hint_label.configure(text="💡 Hint will appear here")
-    update_hearts()
+The Secret Number Guessing Game is a command-line application written in Python.
 
-    guess_button.configure(state="normal")
+The game randomly generates a 4-digit number. The player has **5 attempts** to guess the correct number.
 
-def game_over():
-    guess_button.configure(state="disabled")
+After every incorrect guess, the game provides a hint:
 
-def check_guess(event=None):
-    global attempts_left
+- 📈 Too High
+- 📉 Too Low
 
-    guess = guess_entry.get().strip()
+The game continues until the player either guesses correctly or runs out of attempts.
 
-    if not guess.isdigit() or len(guess) != 4:
-        messagebox.showerror(
-            "Invalid Input",
-            "Please enter a valid 4-digit number."
-        )
-        return
+---
 
-    guess = int(guess)
+# ✨ Features
 
-    if guess == secret_number:
-        hint_label.configure(text="🎉 Correct Guess!")
-        game_over()
+- 🎯 Random 4-digit secret number
+- 🔢 Input validation
+- 📈 Too High hint
+- 📉 Too Low hint
+- ❤️ Limited attempts
+- 🏆 Winning message
+- ❌ Game Over screen
+- 🧩 Modular code structure
+- 📚 Beginner friendly
+- 🚀 Easy to customize
 
-        messagebox.showinfo(
-            "Congratulations!",
-            f"You guessed the secret number!\n\nNumber = {secret_number}"
-        )
+---
 
-        reset_game()
-        return
+# 🛠 Technologies Used
 
-    attempts_left -= 1
-    update_hearts()
+- Python 3
+- Random Module
+- Functions
+- Loops
+- Conditional Statements
+- Input Validation
 
-    if guess < secret_number:
-        hint_label.configure(text="📉 Too Low!")
-    else:
-        hint_label.configure(text="📈 Too High!")
+---
 
-    if attempts_left == 0:
-        game_over()
+# 📂 Project Structure
 
-        messagebox.showerror(
-            "Game Over",
-            f"You lost!\n\nSecret Number = {secret_number}"
-        )
+```
+Secret-Number-Guessing-Game
+│
+├── guess_number.py
+├── config.py
+├── display.py
+├── game.py
+├── hints.py
+├── utils.py
+├── validation.py
+├── README.md
+├── LICENSE
+└── .gitignore
+```
 
-        reset_game()
+---
 
-    guess_entry.delete(0, "end")
+# ⚙️ How It Works
 
-# ------------------ UI ------------------ #
+1. The program generates a random 4-digit secret number.
+2. The player enters a guess.
+3. The program checks the input.
+4. If the guess is incorrect:
+   - Too High
+   - Too Low
+5. Attempts decrease after every wrong guess.
+6. If the player guesses correctly:
+   - Congratulations message.
+7. If all attempts are used:
+   - Game Over message.
 
-title = ctk.CTkLabel(
-    app,
-    text="🎯 Secret Number Guessing Game",
-    font=("Arial", 26, "bold")
-)
-title.pack(pady=(20, 10))
+---
 
-subtitle = ctk.CTkLabel(
-    app,
-    text="Guess the secret 4-digit number",
-    font=("Arial", 16)
-)
-subtitle.pack()
+# 🚀 Installation
 
-guess_entry = ctk.CTkEntry(
-    app,
-    width=250,
-    height=45,
-    font=("Arial", 18),
-    placeholder_text="Enter your guess..."
-)
-guess_entry.pack(pady=25)
+Clone the repository
 
-guess_entry.bind("<Return>", check_guess)
+```bash
+git clone https://github.com/rohil26mim10105-dot/Secret-Number-Guessing-Game.git
+```
 
-guess_button = ctk.CTkButton(
-    app,
-    text="🎯 Guess",
-    width=200,
-    height=45,
-    font=("Arial", 16),
-    command=check_guess
-)
-guess_button.pack()
+Go to the project folder
 
-attempts_label = ctk.CTkLabel(
-    app,
-    text="",
-    font=("Arial", 20)
-)
-attempts_label.pack(pady=25)
+```bash
+cd Secret-Number-Guessing-Game
+```
 
-hint_label = ctk.CTkLabel(
+Run the game
+
+```bash
+python guess_number.py
+```
+
+---
+
+# 🎮 Sample Output
+
+```
+========================================
+SECRET NUMBER GUESSING GAME
+========================================
+
+Guess the 4-digit secret number.
+
+Attempt 1/5
+
+Enter your guess: 4321
+
+Too High!
+
+Attempts Left: 4
+```
+
+---
+
+# 📚 Python Concepts Used
+
+- Variables
+- Data Types
+- User Input
+- Functions
+- Loops
+- If-Else Statements
+- Modules
+- Random Library
+- Error Handling
+- Input Validation
+- Code Reusability
+- Program Flow
+
+---
+
+# 🎯 Learning Outcomes
+
+This project helped in understanding:
+
+- Function-based programming
+- Modular programming
+- Clean code organization
+- Git and GitHub workflow
+- README documentation
+- Python project structure
+
+---
+
+# 🚀 Future Improvements
+
+- GUI Version using Tkinter
+- Difficulty Levels
+- Multiplayer Mode
+- Timer
+- High Score System
+- Sound Effects
+- Statistics Dashboard
+- Save Progress
+
+---
+
+# 👨‍💻 Author
+
+**Rohil Khan**
+
+Integrated M.Tech (CSE with AI)
+
+VIT Bhopal University
+
+GitHub:
+https://github.com/rohil26mim10105-dot
+
+---
+
+# ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.bel = ctk.CTkLabel(
     app,
     text="💡 Hint will appear here",
     font=("Arial", 18)
